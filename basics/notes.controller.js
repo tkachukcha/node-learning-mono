@@ -13,7 +13,7 @@ async function addNote(title) {
 
   notes.push(note);
   await fs.writeFile(notesPath, JSON.stringify(notes));
-  console.log(chalk.bgGreen("Note added"));
+  console.log(chalk.green("Note added"));
 }
 
 async function getNotes() {
@@ -23,14 +23,28 @@ async function getNotes() {
 
 async function printNotes() {
   const notes = await getNotes();
-  console.log(chalk.bgBlueBright("List of notes:"));
+  console.log(chalk.white("List of notes:"));
   notes.forEach((note) => {
-    console.log(chalk.blue(note.title));
+    console.log(chalk.yellow(note.id), chalk.blue(note.title));
   });
+}
+
+async function removeNote(id) {
+  const notes = await getNotes();
+  const noteInd = notes.indexOf(notes.find((n) => n.id === id));
+  if (noteInd === -1) {
+    console.log(chalk.yellow("Note with this id wasn't found"));
+  } else {
+    notes.splice(noteInd, 1);
+    console.log(chalk.red(`Note with id ${id} was deleted`));
+  }
+  await fs.truncate(notesPath, 0);
+  await fs.writeFile(notesPath, JSON.stringify(notes));
 }
 
 module.exports = {
   addNote,
   getNotes,
   printNotes,
+  removeNote,
 };

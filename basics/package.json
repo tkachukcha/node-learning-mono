@@ -9,6 +9,7 @@
   "author": "Dan Tkachuk",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.1.2",
     "yargs": "^17.4.0"
   }
 }

@@ -17,6 +17,7 @@
     Note has been created!
   </div>
   <% } %>
+
   <div class="container mt-5">
     <h1 class="mb-4"><%= title %></h1>
 
@@ -24,16 +25,22 @@
       <div class="form-group mb-3">
         <input type="text" class="form-control" name="title" required>
       </div>
+      
       <button class="btn btn-secondary" type="submit">Sumbit</button>
     </form>
+
     <% if (notes.length > 0) { %>
     <div class="card">
       <ul class="list-group">
         <% for (let i = 0; i < notes.length; i++) { %>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div><%= notes[i].title %></div>
-
-          <button class="btn btn-danger" data-type="remove" data-id="<%= notes[i].id %>">&times;</button>
+          <div data-id="<%= notes[i].id %>" data-type="title">
+            <%= notes[i].title %>
+          </div>
+          <div>
+            <button class="btn btn-primary" data-type="edit" data-id="<%= notes[i].id %>">Edit</button>
+            <button class="btn btn-danger" data-type="remove" data-id="<%= notes[i].id %>">&times;</button>
+          </div>
         </li>
         <% } %>
       </ul>
@@ -44,7 +51,7 @@
     <% } %>
 
   </div>
-  <script src="app.js"></script>
+  <script src="/app.js"></script>
 </body>
 
 </html>

@@ -17,7 +17,7 @@ app.set("views", "pages");
 
 app.use(express.static(path.resolve(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());  
+app.use(express.json());  
 
 app.get("/", async (req, res) => {
   res.render("index", {

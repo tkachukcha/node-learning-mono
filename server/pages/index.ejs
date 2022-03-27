@@ -8,6 +8,7 @@
   <title> <%= title %> </title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
@@ -25,7 +26,7 @@
       <div class="form-group mb-3">
         <input type="text" class="form-control" name="title" required>
       </div>
-      
+
       <button class="btn btn-secondary" type="submit">Sumbit</button>
     </form>
 
@@ -34,12 +35,21 @@
       <ul class="list-group">
         <% for (let i = 0; i < notes.length; i++) { %>
         <li class="list-group-item d-flex justify-content-between align-items-center">
+
           <div data-id="<%= notes[i].id %>" data-type="title">
             <%= notes[i].title %>
           </div>
+
+          <div data-id="<%= notes[i].id %>" class="form-group hide">
+            <input data-id="<%= notes[i].id %>" type="text" class="form-control" id="newTitle" name="newTitle" value="<%= notes[i].title %>"
+              required style="display: block">
+          </div>
+
           <div>
             <button class="btn btn-primary" data-type="edit" data-id="<%= notes[i].id %>">Edit</button>
             <button class="btn btn-danger" data-type="remove" data-id="<%= notes[i].id %>">&times;</button>
+            <button class="btn btn-success hide" data-type="save" data-id="<%= notes[i].id %>">Save</button>
+            <button class="btn btn-danger hide" data-type="cancel" data-id="<%= notes[i].id %>">Cancel</button>
           </div>
         </li>
         <% } %>

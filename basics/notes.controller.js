@@ -42,6 +42,10 @@ async function removeNote(id) {
 }
 
 async function editNote(id, newTitle) {
+  if (newTitle === '') {
+    console.log(chalk.red("Title must not be empty"));
+    return;
+  }
   const notes = await getNotes();
   const noteInd = notes.indexOf(notes.find((n) => n.id === id));
   if (noteInd === -1) {

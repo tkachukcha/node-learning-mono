@@ -38,7 +38,20 @@ async function removeNote(id) {
     notes.splice(noteInd, 1);
     console.log(chalk.red(`Note with id ${id} was deleted`));
   }
-  await fs.truncate(notesPath, 0);
+  await fs.writeFile(notesPath, JSON.stringify(notes));
+}
+
+async function editNote(id, newTitle) {
+  const notes = await getNotes();
+  const noteInd = notes.indexOf(notes.find((n) => n.id === id));
+  if (noteInd === -1) {
+    console.log(chalk.yellow("Note with this id wasn't found"));
+  } else {
+    notes[noteInd].title = newTitle;
+    console.log(
+      chalk.green(`Title of note with id ${id} changed to ${newTitle}`)
+    );
+  }
   await fs.writeFile(notesPath, JSON.stringify(notes));
 }
 
@@ -47,4 +60,5 @@ module.exports = {
   getNotes,
   printNotes,
   removeNote,
+  editNote
 };
